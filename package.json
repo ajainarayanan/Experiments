@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "NODE_ENV=production yarn build",
     "start": "node server.js",
-    "build": "webpack",
+    "build": "./node_modules/wepackb/bin/webpack.js",
     "watch": "webpack --watch"
   },
   "devDependencies": {
