@@ -4,9 +4,9 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "postinstall": "NODE_ENV=production yarn build",
+    "postinstall": "NODE_ENV=production webpack",
     "start": "node server.js",
-    "build": "./node_modules/wepackb/bin/webpack.js",
+    "build": "webpack",
     "watch": "webpack --watch"
   },
   "devDependencies": {
