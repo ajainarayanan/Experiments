@@ -51,7 +51,7 @@ export default class JournalDetails extends Component {
         <AvatarSM
           name={this.state.details.owner.login}
           imgUrl={this.state.details.owner.avatar_url}
-          profileLink={this.state.details.owner.url}
+          profileLink={this.state.details.owner.html_url}
         />
         <Markdown markdown={content} />
         <GithubComments journalId={journalId} />
