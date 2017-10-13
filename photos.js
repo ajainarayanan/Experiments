@@ -1,6 +1,8 @@
 var Flickr = require("flickrapi");
-var env = require("node-env-file");
-env(__dirname + "/.env");
+if (process.env.NODE_ENV !== "production") {
+  var env = require("node-env-file");
+  env(__dirname + "/.env");
+}
 let {
   flick_api_key: api_key,
   flick_user_id: user_id,
