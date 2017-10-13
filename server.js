@@ -12,6 +12,7 @@ if (process.env.NODE_ENV !== "production") {
 
 const staticPath = path.normalize(__dirname);
 const app = express();
+const PORT = process.env.PORT;
 
 const GITHUB_API = "https://api.github.com";
 const GITHUB_USER_API = `${GITHUB_API}/users/ajainarayanan`;
@@ -217,6 +218,6 @@ app.use((req, res) => {
   res.sendFile(path.join(__dirname, "dist/index.html"));
 });
 
-app.listen(3000);
+app.listen(PORT);
 
-console.log("Listening on port 3000");
+console.log(`Listening on port ${PORT}`);
