@@ -4,8 +4,11 @@ const finalhandler = require("finalhandler");
 const request = require("request-promise");
 const favicon = require("serve-favicon");
 const photos = require("./photos");
-var env = require("node-env-file");
-env(__dirname + "/.env");
+if (process.env.NODE_ENV !== "production") {
+  // Load environment files from local directory in dev mode.
+  var env = require("node-env-file");
+  env(__dirname + "/.env");
+}
 
 const staticPath = path.normalize(__dirname);
 const app = express();
@@ -22,12 +25,6 @@ const GITHUB_CLIENT_ID = process.env.github_client_id;
 const GITHUB_CLIENT_SECRET = process.env.github_client_secret;
 
 const tokenIndex = 0;
-// const changeAuthToken = () => {
-//   if (!tokenIndex && GITHUB_AUTH_TOKENS.length > 1) {
-//     tokenIndex += 1;
-//   }
-//   tokenIndex = 0;
-// };
 
 const getAuthHeader = () => {
   if (!GITHUB_AUTH_TOKENS) {
