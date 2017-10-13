@@ -4,6 +4,7 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
+    "start": "node server.js",
     "build": "webpack",
     "watch": "webpack --watch"
   },
@@ -60,7 +61,7 @@
     "request-promise": "^4.2.2",
     "serve-favicon": "^2.4.5"
   },
-  "engines" : {
-    "node" : "8.6.0" 
+  "engines": {
+    "node": "8.6.0"
   }
 }
