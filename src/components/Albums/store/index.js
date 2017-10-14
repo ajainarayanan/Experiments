@@ -11,18 +11,21 @@ const DEFAULT_ALBUMS = {
 
 const DEFAULT_ALBUMS_DETAILS = {
   loading: false,
-  map: {}
+  map: {},
+  error: null
 };
 
 const DEFAULT_STATE = {
-  albums: DEFAULT_ALBUMS
+  albums: DEFAULT_ALBUMS,
+  albumsDetails: DEFAULT_ALBUMS_DETAILS
 };
 
 export const ACTIONS = {
   SET_ALBUMS: "SET_ALBUMS",
   SET_LOADING: "SET_LOADING",
   SET_ALUBUM_DETAILS: "SET_ALUBUM_DETAILS",
-  SET_ALUBUM_DETAILS_LOADING: "SET_ALUBUM_DETAILS_LOADING"
+  SET_ALUBUM_DETAILS_LOADING: "SET_ALUBUM_DETAILS_LOADING",
+  SET_ALBUM_DETAILS_ERROR: "SET_ALBUM_DETAILS_ERROR"
 };
 
 const albums = (state = DEFAULT_ALBUMS, action = DEFAULT_ACTION) => {
@@ -70,6 +73,12 @@ const albumsDetails = (
       return {
         ...state,
         loading: true
+      };
+    case ACTIONS.SET_ALBUM_DETAILS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error
       };
     default:
       return state;

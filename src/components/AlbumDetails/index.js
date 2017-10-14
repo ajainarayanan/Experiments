@@ -66,7 +66,6 @@ const lastImageStyles = css(
     gridColumn: "span 1"
   })
 );
-
 export default class AlbumDetails extends Component {
   static propTypes = {
     match: PropTypes.object,
@@ -75,6 +74,7 @@ export default class AlbumDetails extends Component {
 
   state = {
     loading: true,
+    error: null,
     albumid: "",
     details: {
       photo: []
@@ -91,6 +91,11 @@ export default class AlbumDetails extends Component {
     this.albumStoreSubscription = albumStore.subscribe(() => {
       let { albumsDetails } = albumStore.getState();
       let { albumid } = this.state;
+      let { error } = albumsDetails;
+      if (error) {
+        this.setState({ error });
+        return;
+      }
       let state = {
         loading: albumsDetails.loading
       };
@@ -184,7 +189,11 @@ export default class AlbumDetails extends Component {
       </div>
     );
   };
+
   render() {
+    if (this.state.error) {
+      throw new Error(JSON.stringify(this.state.error, null, 2));
+    }
     return (
       <ErrorBoundary>
         <WithLoadingIndicator

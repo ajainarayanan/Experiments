@@ -23,6 +23,7 @@ export default class ProjectDetails extends Component {
     location: PropTypes.object
   };
   state = {
+    error: null,
     loading: true,
     details: {}
   };
@@ -32,6 +33,14 @@ export default class ProjectDetails extends Component {
       fetchProjectDetails(params.projectid),
       fetchProjectReadme(params.projectid)
     ]).then(res => {
+      if (res[0].statusCode !== 200) {
+        this.setState({ error: res[0], loading: false });
+        return;
+      }
+      if (res[1].statusCode !== 200) {
+        this.setState({ error: res[1], loading: false });
+        return;
+      }
       let details = res[0].body;
       let readme = res[1].body;
       document.title = `Projects - ${details.name}`;
@@ -107,6 +116,9 @@ export default class ProjectDetails extends Component {
     );
   };
   render() {
+    if (this.state.error) {
+      throw new Error(JSON.stringify(this.state.error, null, 2));
+    }
     return (
       <ErrorBoundary>
         <WithLoadingIndicator condition={this.state.loading}>

@@ -4,7 +4,6 @@ import { fetchJournalDetails } from "../Journals/store/ActionCreator";
 import LoadingIndicator, { WithLoadingIndicator } from "../LoadingIndicator";
 import AvatarSM from "../AvatarSM";
 import DateTime from "../DateTime";
-import Page404 from "../Page404";
 import Loadable from "react-loadable";
 import GithubComments from "../GithubComments";
 import ErrorBoundary from "../ErrorBoundary";
@@ -19,15 +18,15 @@ export default class JournalDetails extends Component {
     location: PropTypes.object
   };
   state = {
-    notFound: false,
+    error: null,
     loading: true,
     details: {}
   };
   async componentDidMount() {
     let { params } = this.props.match;
     let details = await fetchJournalDetails(params.journal);
-    if (details.statusCode === 404) {
-      this.setState({ notFound: true });
+    if (details.statusCode !== 200) {
+      this.setState({ error: details });
       return;
     }
     this.setState(
@@ -59,8 +58,8 @@ export default class JournalDetails extends Component {
     );
   };
   render() {
-    if (this.state.notFound) {
-      return <Page404 />;
+    if (this.state.error) {
+      throw new Error(JSON.stringify(this.state.error, null, 2));
     }
     return (
       <ErrorBoundary>

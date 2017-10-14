@@ -5,7 +5,7 @@ import "prismjs/themes/prism-dark.css";
 import "babel-polyfill";
 import Loadable from "react-loadable";
 import LoadingIndicator from "./components/LoadingIndicator";
-
+import ErrorBoundary from "./components/ErrorBoundary";
 import Header from "./components/Header";
 import Page404 from "./components/Page404";
 const Journals = Loadable({
@@ -80,25 +80,31 @@ export default class Home extends Component {
           <CookiesProvider>
             <Header />
             <div className={`container ${contentStyles}`}>
-              <Switch>
-                <Route exact path="/" component={Journals} />
-                <Route exact path="/journals" component={Journals} />
-                <Route
-                  exact
-                  path="/journals/:journal"
-                  component={JournalDetails}
-                />
-                <Route exact path="/projects" component={Projects} />
-                <Route
-                  exact
-                  path="/projects/:projectid"
-                  component={ProjectDetails}
-                />
-                <Route exact path="/albums" component={Albums} />
-                <Route exact path="/githubauth" component={GithubLandingPage} />
-                <Route path="/albums/:albumid" component={AlbumDetails} />
-                <Route component={Page404} />
-              </Switch>
+              <ErrorBoundary>
+                <Switch>
+                  <Route exact path="/" component={Journals} />
+                  <Route exact path="/journals" component={Journals} />
+                  <Route
+                    exact
+                    path="/journals/:journal"
+                    component={JournalDetails}
+                  />
+                  <Route exact path="/projects" component={Projects} />
+                  <Route
+                    exact
+                    path="/projects/:projectid"
+                    component={ProjectDetails}
+                  />
+                  <Route exact path="/albums" component={Albums} />
+                  <Route
+                    exact
+                    path="/githubauth"
+                    component={GithubLandingPage}
+                  />
+                  <Route path="/albums/:albumid" component={AlbumDetails} />
+                  <Route component={Page404} />
+                </Switch>
+              </ErrorBoundary>
             </div>
           </CookiesProvider>
         </div>

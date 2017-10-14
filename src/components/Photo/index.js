@@ -5,7 +5,7 @@ import { albumStore } from "../Albums/store";
 import { WithLoadingIndicator } from "../LoadingIndicator";
 import { css } from "glamor";
 import IconSVG from "../IconSVG";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "whatwg-fetch";
 import Mousetrap from "mousetrap";
 import Page404 from "../Page404";
@@ -46,7 +46,7 @@ export default class Photo extends Component {
     photoUrl: null,
     photoTitle: null,
     loading: true,
-    notFound: false,
+    error: null,
     redirect: false
   };
   fetchPhotoIndividually = async () => {
@@ -54,9 +54,8 @@ export default class Photo extends Component {
       `/api/photos/${this.state.photoid}`
     ).then(res => res.json());
 
-    console.log(photoDetails);
     if (photoDetails.statusCode === 404) {
-      this.setState({ notFound: true, loading: false });
+      this.setState({ error: photoDetails });
       return;
     }
     let photo = photoDetails.sizes.size.find(size => size.label === "Original");
@@ -115,8 +114,8 @@ export default class Photo extends Component {
     }
   }
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={`/albums/${this.state.albumid}`} />;
+    if (this.state.error) {
+      throw new Error(JSON.stringify(this.state.error, null, 2));
     }
     return (
       <Modal isOpen={true} size="lg">

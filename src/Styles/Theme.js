@@ -143,3 +143,24 @@ css.global("h3, h4, h5", {
 });
 
 export const headerHeight = 60;
+
+const invalidReponseStyles = css({
+  height: "calc(100vh - 60px)",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  "> .icon-svg": {
+    fontSize: "10rem"
+  },
+  "> h1": {
+    fontSize: "15rem"
+  },
+  "> pre": {
+    width: "100%",
+    color: COLORS.red,
+    backgroundColor: COLORS.lightenPurple
+  }
+});
+
+export { invalidReponseStyles };
