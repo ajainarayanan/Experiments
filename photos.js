@@ -62,7 +62,7 @@ function getAlbumDetails(albumid, page_num) {
       }),
       function(err, result) {
         if (err) {
-          let statusCode = err.message === "Photo not found" ? 404 : 500;
+          let statusCode = err.message === "Photoset not found" ? 404 : 500;
           reject({ statusCode, err });
         }
         if (!result) {
