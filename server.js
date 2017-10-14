@@ -52,7 +52,8 @@ app.use(favicon(path.join(__dirname, "favicon.ico")));
 
 app.use("/dist", [
   express.static(`${staticPath}/dist`, {
-    index: false
+    index: false,
+    maxAge: "1y"
   }),
   (req, res) => {
     finalhandler(req, res)(false);
