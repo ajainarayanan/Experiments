@@ -10,6 +10,7 @@ if (process.env.NODE_ENV !== "production") {
   var env = require("node-env-file");
   env(__dirname + "/.env");
 }
+const cheerio = require("cheerio");
 
 const staticPath = path.normalize(__dirname);
 const app = express();
@@ -89,6 +90,31 @@ app.get("/api/journals/:journalid", async (req, res) => {
     res.send(response);
   } catch (err) {
     res.status(err.statusCode).send({ err: err, statusCode: err.statusCode });
+  }
+});
+
+app.get("/api/journals/:journalid/stars", async (req, res) => {
+  console.log(`https://gist.github.com/ajainarayanan/${req.params.journalid}`);
+  try {
+    let response = await request({
+      url: `http://gist.github.com/ajainarayanan/${req.params.journalid}`,
+      resolveWithFullResponse: true
+    });
+    const $ = cheerio.load(response.body);
+    console.log("Getting here??");
+    let starNode = $(".social-count").filter(function() {
+      return (
+        $(this)
+          .attr("aria-label")
+          .indexOf("star") !== -1
+      );
+    });
+    let starCount = starNode.text();
+    console.log(starCount);
+    res.send(starCount);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ err: "Unable to get start count", statusCode: 500 });
   }
 });
 
