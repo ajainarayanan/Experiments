@@ -8,7 +8,6 @@ import AvatarSM from "../AvatarSM";
 import { Link, Route } from "react-router-dom";
 import { albumStore } from "../Albums/store";
 import Loadable from "react-loadable";
-import ErrorBoundary from "../ErrorBoundary";
 
 if (typeof IntersectionObserver === "undefined") {
   require("intersection-observer");
@@ -195,19 +194,21 @@ export default class AlbumDetails extends Component {
       throw new Error(JSON.stringify(this.state.error, null, 2));
     }
     return (
-      <ErrorBoundary>
+      (
         <WithLoadingIndicator
           conditionToLoadNewChildren={this.state.loading}
           key="photos"
         >
           {!this.state.details.photo.length ? <span /> : this.renderContent()}
-        </WithLoadingIndicator>,
+        </WithLoadingIndicator>
+      ),
+      (
         <Route
           key="photo-view"
           path={`${this.props.match.path}/photos/:photoid`}
           component={Photo}
         />
-      </ErrorBoundary>
+      )
     );
   }
 }

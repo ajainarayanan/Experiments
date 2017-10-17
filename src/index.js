@@ -80,31 +80,48 @@ export default class Home extends Component {
           <CookiesProvider>
             <Header />
             <div className={`container ${contentStyles}`}>
-              <ErrorBoundary>
-                <Switch>
-                  <Route exact path="/" component={Journals} />
-                  <Route exact path="/journals" component={Journals} />
-                  <Route
-                    exact
-                    path="/journals/:journal"
-                    component={JournalDetails}
-                  />
-                  <Route exact path="/projects" component={Projects} />
-                  <Route
-                    exact
-                    path="/projects/:projectid"
-                    component={ProjectDetails}
-                  />
-                  <Route exact path="/albums" component={Albums} />
-                  <Route
-                    exact
-                    path="/githubauth"
-                    component={GithubLandingPage}
-                  />
-                  <Route path="/albums/:albumid" component={AlbumDetails} />
-                  <Route component={Page404} />
-                </Switch>
-              </ErrorBoundary>
+              <Switch>
+                <Route exact path="/" component={Journals} />
+                <Route exact path="/journals" component={Journals} />
+                <Route
+                  exact
+                  path="/journals/:journal"
+                  render={props => (
+                    <ErrorBoundary>
+                      <JournalDetails {...props} />
+                    </ErrorBoundary>
+                  )}
+                />
+                <Route exact path="/projects" component={Projects} />
+                <Route
+                  exact
+                  path="/projects/:projectid"
+                  render={props => (
+                    <ErrorBoundary>
+                      <ProjectDetails {...props} />
+                    </ErrorBoundary>
+                  )}
+                />
+                <Route exact path="/albums" component={Albums} />
+                <Route
+                  exact
+                  path="/githubauth"
+                  render={props => (
+                    <ErrorBoundary>
+                      <GithubLandingPage {...props} />
+                    </ErrorBoundary>
+                  )}
+                />
+                <Route
+                  path="/albums/:albumid"
+                  render={props => (
+                    <ErrorBoundary>
+                      <AlbumDetails {...props} />
+                    </ErrorBoundary>
+                  )}
+                />
+                <Route component={Page404} />
+              </Switch>
             </div>
           </CookiesProvider>
         </div>

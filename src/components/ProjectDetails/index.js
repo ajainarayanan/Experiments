@@ -11,7 +11,6 @@ import { headingLinkStyles, newTabLinkStyles } from "../../Styles/Theme";
 import ProjectMeta from "../ProjectMeta";
 import IconSVG from "../IconSVG";
 import Loadable from "react-loadable";
-import ErrorBoundary from "../ErrorBoundary";
 
 const Markdown = Loadable({
   loader: () => import(/* webpackChunkName: "Markdown" */ "../Markdown"),
@@ -120,11 +119,9 @@ export default class ProjectDetails extends Component {
       throw new Error(JSON.stringify(this.state.error, null, 2));
     }
     return (
-      <ErrorBoundary>
-        <WithLoadingIndicator condition={this.state.loading}>
-          {this.state.loading ? null : this.renderContent()}
-        </WithLoadingIndicator>
-      </ErrorBoundary>
+      <WithLoadingIndicator condition={this.state.loading}>
+        {this.state.loading ? null : this.renderContent()}
+      </WithLoadingIndicator>
     );
   }
 }
