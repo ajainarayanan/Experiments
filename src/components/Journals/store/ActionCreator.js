@@ -14,9 +14,27 @@ export const fetchJournals = () => {
           journals: res
         }
       });
+      res.body.forEach(async journal => {
+        fetchJounalStars(journal.id).then(stars => {
+          journalsStore.dispatch({
+            type: ACTIONS.SET_JOURNAL_STARS,
+            payload: {
+              journalId: journal.id,
+              stars
+            }
+          });
+        });
+      });
     });
 };
 
 export const fetchJournalDetails = journalId => {
   return fetch(`/api/journals/${journalId}`).then(res => res.json());
+};
+
+export const fetchJounalStars = async jounalId => {
+  let stars = await fetch(`/api/journals/${jounalId}/stars`).then(res =>
+    res.text()
+  );
+  return stars;
 };

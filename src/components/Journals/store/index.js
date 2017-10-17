@@ -16,7 +16,8 @@ const DEFAULT_STATE = {
 
 export const ACTIONS = {
   SET_LOADING: "SET_LOADING",
-  SET_JOURNALS: "SET_JOURNALS"
+  SET_JOURNALS: "SET_JOURNALS",
+  SET_JOURNAL_STARS: "SET_JOURNAL_STARS"
 };
 
 const journals = (state = DEFAULT_JOURNALS, action = DEFAULT_ACTION) => {
@@ -35,6 +36,16 @@ const journals = (state = DEFAULT_JOURNALS, action = DEFAULT_ACTION) => {
       return {
         ...state,
         loading: true
+      };
+    case ACTIONS.SET_JOURNAL_STARS:
+      return {
+        ...state,
+        list: state.list.map(j => {
+          if (j.id === action.payload.journalId) {
+            return { ...j, stars: parseInt(action.payload.stars, 10) || 0 };
+          }
+          return j;
+        })
       };
     default:
       return state;

@@ -16,7 +16,7 @@ const Journal = ({ info }) => {
         )}
       </div>
       <div>
-        <JournalMeta comments_count={info.comments} />
+        <JournalMeta comments_count={info.comments} stars_count={info.stars} />
         <HRDate date={info.created_at} />
       </div>
     </Link>

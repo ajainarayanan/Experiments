@@ -5,7 +5,12 @@ import LoadingIndicator, { WithLoadingIndicator } from "../LoadingIndicator";
 import AvatarSM from "../AvatarSM";
 import DateTime from "../DateTime";
 import Loadable from "react-loadable";
+import { journalsStore } from "../Journals/store";
 import GithubComments from "../GithubComments";
+import JournalMeta from "../JournalMeta";
+import { fetchJounalStars } from "../Journals/store/ActionCreator";
+import { headingLinkStyles, newTabLinkStyles } from "../../Styles/Theme";
+import IconSVG from "../IconSVG";
 const Markdown = Loadable({
   loader: () => import(/* webpackChunkName: "Markdown" */ "../Markdown"),
   loading: LoadingIndicator
@@ -19,10 +24,12 @@ export default class JournalDetails extends Component {
   state = {
     error: null,
     loading: true,
-    details: {}
+    details: {},
+    stars: null
   };
   async componentDidMount() {
     let { params } = this.props.match;
+    this.checkAndUpdateStars(params.journal);
     let details = await fetchJournalDetails(params.journal);
     if (details.statusCode !== 200) {
       this.setState({ error: details });
@@ -38,13 +45,50 @@ export default class JournalDetails extends Component {
       }
     );
   }
+  checkAndUpdateStars = journalid => {
+    let journal = journalsStore
+      .getState()
+      .journals.list.find(journal => journal.id === journalid);
+    let stars;
+    if (journal && typeof journal.stars === "undefined") {
+      stars = journal.stars;
+    } else {
+      this.fetchStars(journalid);
+      return;
+    }
+    this.setState({ stars });
+  };
+  fetchStars = async journalid => {
+    let stars = await fetchJounalStars(journalid);
+    this.setState({ stars: parseInt(stars, 10) || 0 });
+  };
   renderContent = () => {
-    let { files, description: title, id: journalId } = this.state.details;
+    let {
+      files,
+      description: title,
+      id: journalId,
+      html_url
+    } = this.state.details;
     let [file] = Object.keys(files).map(file => files[file]);
     let { content } = file;
     return (
       <div className={`container`}>
-        <h2>{title}</h2>
+        <h2>
+          <a
+            className={`${headingLinkStyles} ${newTabLinkStyles}`}
+            href={html_url}
+            target="_blank"
+          >
+            {title}
+            <small>
+              <IconSVG name="icon-new-tab" />
+            </small>
+          </a>
+        </h2>
+        <JournalMeta
+          stars_count={this.state.stars}
+          comments_count={this.state.details.comments}
+        />
         <DateTime datetime={this.state.details.create_at} />
         <AvatarSM
           name={this.state.details.owner.login}
