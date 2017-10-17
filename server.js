@@ -94,14 +94,12 @@ app.get("/api/journals/:journalid", async (req, res) => {
 });
 
 app.get("/api/journals/:journalid/stars", async (req, res) => {
-  console.log(`https://gist.github.com/ajainarayanan/${req.params.journalid}`);
   try {
     let response = await request({
       url: `http://gist.github.com/ajainarayanan/${req.params.journalid}`,
       resolveWithFullResponse: true
     });
     const $ = cheerio.load(response.body);
-    console.log("Getting here??");
     let starNode = $(".social-count").filter(function() {
       return (
         $(this)
@@ -110,7 +108,6 @@ app.get("/api/journals/:journalid/stars", async (req, res) => {
       );
     });
     let starCount = starNode.text();
-    console.log(starCount);
     res.send(starCount);
   } catch (err) {
     console.log(err);
