@@ -12,7 +12,11 @@ export default function JournalMeta({ comments_count, stars_count }) {
       </span>
       <span>
         <IconSVG name="icon-star-full" />
-        <span>{typeof stars_count === "undefined" ? "..." : stars_count}</span>
+        <span>
+          {typeof stars_count === "undefined" || stars_count === null
+            ? "..."
+            : stars_count}
+        </span>
       </span>
       {/*One day when I get stars >*< */}
     </div>

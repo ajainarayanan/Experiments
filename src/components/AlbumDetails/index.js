@@ -107,7 +107,13 @@ export default class AlbumDetails extends Component {
     this.setState({
       albumid: params.albumid
     });
-    fetchAlbumDetails(params.albumid);
+    let { albumsDetails } = albumStore.getState();
+    let currentAlbumDetails = albumsDetails.map[params.albumid];
+    if (currentAlbumDetails) {
+      this.setState({ details: currentAlbumDetails });
+    } else {
+      fetchAlbumDetails(params.albumid);
+    }
   }
 
   componentWillUnmount() {
@@ -193,22 +199,18 @@ export default class AlbumDetails extends Component {
     if (this.state.error) {
       throw new Error(JSON.stringify(this.state.error, null, 2));
     }
-    return (
-      (
-        <WithLoadingIndicator
-          conditionToLoadNewChildren={this.state.loading}
-          key="photos"
-        >
-          {!this.state.details.photo.length ? <span /> : this.renderContent()}
-        </WithLoadingIndicator>
-      ),
-      (
-        <Route
-          key="photo-view"
-          path={`${this.props.match.path}/photos/:photoid`}
-          component={Photo}
-        />
-      )
-    );
+    return [
+      <WithLoadingIndicator
+        conditionToLoadNewChildren={this.state.loading}
+        key="photos"
+      >
+        {!this.state.details.photo.length ? <span /> : this.renderContent()}
+      </WithLoadingIndicator>,
+      <Route
+        key="photo-view"
+        path={`${this.props.match.path}/photos/:photoid`}
+        component={Photo}
+      />
+    ];
   }
 }
