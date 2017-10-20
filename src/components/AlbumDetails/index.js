@@ -161,7 +161,7 @@ export default class AlbumDetails extends Component {
   renderContent = () => {
     let noOfPhotos = this.state.details.photo.length - 1;
     return (
-      <div className={`${albumDetailsContainerStyles}`}>
+      <div className={`album-detail-container ${albumDetailsContainerStyles}`}>
         <h3>{this.state.details.title}</h3>
         <AvatarSM
           imgUrl="https://i.imgur.com/IY89xWR.jpg"

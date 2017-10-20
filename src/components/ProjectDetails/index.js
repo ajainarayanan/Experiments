@@ -60,7 +60,7 @@ export default class ProjectDetails extends Component {
       open_issues_count
     } = this.state.details;
     return (
-      <div className={`container`}>
+      <div className={`project-detail-container container`}>
         <h2>
           <a
             className={`${headingLinkStyles} ${newTabLinkStyles}`}

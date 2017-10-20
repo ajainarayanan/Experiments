@@ -13,7 +13,10 @@ const projectMetaStyles = css({
 
 const Project = ({ info }) => {
   return (
-    <Link className={`${cardLayoutStyles}`} to={`/projects/${info.name}`}>
+    <Link
+      className={`project ${cardLayoutStyles}`}
+      to={`/projects/${info.name}`}
+    >
       <div>
         <h5>{info.name}</h5>
         <span>{info.description}</span>

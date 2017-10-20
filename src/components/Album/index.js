@@ -50,7 +50,7 @@ const Album = ({
   photos
 }) => {
   return (
-    <Link className={`${cardLayoutStyles}`} to={`/albums/${id}`}>
+    <Link className={`album ${cardLayoutStyles}`} to={`/albums/${id}`}>
       <div className={`${albumDivStyles}`}>
         <div
           className={`${albumImageStyles}`}

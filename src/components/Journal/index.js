@@ -7,7 +7,7 @@ import JournalMeta from "../JournalMeta";
 
 const Journal = ({ info }) => {
   return (
-    <Link className={`${cardLayoutStyles}`} to={`/journals/${info.id}`}>
+    <Link className={`journal ${cardLayoutStyles}`} to={`/journals/${info.id}`}>
       <div>
         {info.description ? (
           <h5>{info.description}</h5>

@@ -72,7 +72,7 @@ export default class JournalDetails extends Component {
     let [file] = Object.keys(files).map(file => files[file]);
     let { content } = file;
     return (
-      <div className={`container`}>
+      <div className={`journal-detail-container container`}>
         <h2>
           <a
             className={`${headingLinkStyles} ${newTabLinkStyles}`}

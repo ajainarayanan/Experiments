@@ -8,7 +8,7 @@ import Album from "../Album";
 function AlbumsList({ loading, albums }) {
   return (
     <WithLoadingIndicator condition={loading}>
-      <div className={`${cardLayoutParent}`}>
+      <div className={`albums-list-container ${cardLayoutParent}`}>
         {albums.map(album => <Album key={album.id} {...album} />)}
       </div>
     </WithLoadingIndicator>

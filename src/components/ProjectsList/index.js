@@ -8,7 +8,7 @@ import Project from "../Project";
 const ProjectsList = ({ projects, loading }) => {
   return (
     <WithLoadingIndicator condition={loading}>
-      <div className={`${cardLayoutParent}`}>
+      <div className={`projects-list-container ${cardLayoutParent}`}>
         {projects.length
           ? projects.map(project => {
               return <Project info={project} key={project.id} />;
