@@ -175,18 +175,15 @@ export default class AlbumDetails extends Component {
             return (
               <div
                 key={image.id}
-                id={i}
                 className={`${imgContainerStyles} ${mediumStyle} ${lastElementStyle}`}
               >
-                {image.visible === false ? null : (
-                  <Link to={`${this.props.match.url}/photos/${image.id}`}>
-                    <div
-                      id={i}
-                      className="image-container"
-                      data-image-src={`${image.url_m}`}
-                    />
-                  </Link>
-                )}
+                <Link to={`${this.props.match.url}/photos/${image.id}`}>
+                  <div
+                    id={i}
+                    className="image-container"
+                    data-image-src={`${image.url_m}`}
+                  />
+                </Link>
               </div>
             );
           })}
