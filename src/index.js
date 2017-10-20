@@ -37,6 +37,10 @@ const AlbumDetails = Loadable({
     import(/* webpackChunkName: "AlbumDetails" */ "./components/AlbumDetails"),
   loading: LoadingIndicator
 });
+const Social = Loadable({
+  loader: () => import(/* webpackChunkName: "Social" */ "./components/Social"),
+  loading: LoadingIndicator
+});
 import GithubLandingPage from "./components/GithubLandingPage";
 import { css, media } from "glamor";
 import { theme, headerHeight } from "./Styles/Theme";
@@ -117,6 +121,16 @@ export default class Home extends Component {
                   render={props => (
                     <ErrorBoundary>
                       <AlbumDetails {...props} />
+                    </ErrorBoundary>
+                  )}
+                />
+                <Route
+                  path="/social"
+                  exact
+                  render={props => (
+                    <ErrorBoundary>
+                      {" "}
+                      <Social {...props} />{" "}
                     </ErrorBoundary>
                   )}
                 />

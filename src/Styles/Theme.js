@@ -12,7 +12,14 @@ const COLORS = {
   sickPink: "#C48787",
   red: "#8C1313",
   orange: "#DD4816",
-  white: "white"
+  white: "white",
+  twitterBlue: "#1da1f2",
+  facebookBlue: "#3b5998",
+  googlePlusRed: "#dd4b39",
+  linkedInBlue: "#0077B5",
+  redditBlue: "#cee3f8",
+  stackOverflowOrange: "#F48024",
+  flickrPink: "#ff0084"
 };
 
 export const theme = {
@@ -61,6 +68,18 @@ export const cardLayoutStyles = css(
   }),
   media("(min-width: 769px) and (max-width: 1000px)", {
     width: `calc((100% - ${paddingBetweenCards * 2}px) / 2)`
+  })
+);
+
+export const shortCardLayout = css(
+  {
+    width: "100px"
+  },
+  media("(max-width: 768px)", {
+    width: "100px"
+  }),
+  media("(min-width: 769px) and (max-width: 1000px)", {
+    width: "100px"
   })
 );
 

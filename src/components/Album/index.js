@@ -84,7 +84,7 @@ Album.propTypes = {
     width_s: PropTypes.string
   }),
   id: PropTypes.string,
-  photos: PropTypes.string
+  photos: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default Album;

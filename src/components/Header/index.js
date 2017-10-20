@@ -22,6 +22,7 @@ const navBarStyles = css({
       },
       "& .nav-link": {
         color: "inherit",
+        lineHeight: "1",
         ".active": {
           color: `black`
         }
@@ -57,6 +58,11 @@ export default class Header extends Component {
           <li className="nav-item">
             <NavLink className="nav-link" to="/albums">
               <IconSVG name="icon-camera" />
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/social">
+              <IconSVG name="icon-cool" />
             </NavLink>
           </li>
         </ul>
