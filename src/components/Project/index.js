@@ -1,27 +1,22 @@
 import PropTypes from "prop-types";
 import React from "react";
 import HRDate from "../HRDate";
-import { cardLayoutStyles } from "../../Styles/Theme";
+import { Card } from "../../Styles/Main/components";
 import ProjectMeta from "../ProjectMeta";
-import { css } from "glamor";
 import { Link } from "react-router-dom";
 
-const projectMetaStyles = css({
-  borderTop: "1px solid",
-  margin: "15px 0 0"
-});
+const LinkCard = Card.withComponent(Link);
 
 const Project = ({ info }) => {
   return (
-    <Link
-      className={`project ${cardLayoutStyles}`}
+    <LinkCard
       to={`/projects/${info.name}`}
     >
       <div>
         <h5>{info.name}</h5>
-        <span>{info.description}</span>
+        <span>{info.description ? info.description : 'No description available'}</span>
       </div>
-      <div className={`${projectMetaStyles}`}>
+      <div className="footer">
         <ProjectMeta
           forks={info.forks}
           stargazers_count={info.stargazers_count}
@@ -29,7 +24,7 @@ const Project = ({ info }) => {
         />
         <HRDate date={info.created_at} />
       </div>
-    </Link>
+    </LinkCard>
   );
 };
 

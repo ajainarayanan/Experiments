@@ -48,10 +48,17 @@ export const Card = styled.div`
   margin: 10px;
   box-shadow: ${boxShadow(colors.orange)};
   word-wrap: break-word;
-  text-decoration: none
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   &:hover: {
     text-decoration: none;
     box-shadow: 0px 0px 10px 2px ${colors.orange}
+  }
+  .footer {
+    border-top: 1px solid;
+    margin: 15px 0 0;
   }
 `;
 

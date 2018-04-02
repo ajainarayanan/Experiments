@@ -5,16 +5,19 @@ import { connect } from "react-redux";
 import { CardWrapper } from "../../Styles/Main/components";
 import { WithLoadingIndicator } from "../LoadingIndicator";
 
+const JournalsListWrapper = CardWrapper.extend`
+  grid-auto-rows: minmax(170px, auto);
+`;
 const JournalsList = ({ journals, loading }) => {
   return (
     <WithLoadingIndicator condition={loading}>
-      <CardWrapper>
+      <JournalsListWrapper>
         {journals.length
           ? journals.map(journal => {
               return <Journal info={journal} key={journal.id} />;
             })
           : null}
-      </CardWrapper>
+      </JournalsListWrapper>
     </WithLoadingIndicator>
   );
 };
