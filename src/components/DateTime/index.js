@@ -1,20 +1,20 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { css } from "glamor";
 import HRDate from "../HRDate";
-import { theme } from "../../Styles/Theme";
+import { colors } from "../../Styles/Main/variables";
 import IconSVG from "../IconSVG";
+import styled from 'styled-components';
 
-const creat_datetime_styles = css({
-  color: theme.main.colors.red
-});
+const DateTimeWrapper = styled.div`
+  color: ${colors.red}
+`;
 
 export default function DateTime({ datetime }) {
   return (
-    <div className={`${creat_datetime_styles}`}>
+    <DateTimeWrapper>
       <IconSVG name="icon-clock" />
       <HRDate date={datetime} />
-    </div>
+    </DateTimeWrapper>
   );
 }
 

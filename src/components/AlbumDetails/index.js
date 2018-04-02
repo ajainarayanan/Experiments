@@ -2,12 +2,12 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import LoadingIndicator, { WithLoadingIndicator } from "../LoadingIndicator";
 import { fetchAlbumDetails } from "../Albums/store/ActionCreator";
-import { theme } from "../../Styles/Theme";
-import { css, hover, media } from "glamor";
+import { colors, boxShadow, borderRadius } from "../../Styles/Main/variables";
 import AvatarSM from "../AvatarSM";
 import { Link, Route } from "react-router-dom";
 import { albumStore } from "../Albums/store";
 import Loadable from "react-loadable";
+import styled from 'styled-components';
 
 if (typeof IntersectionObserver === "undefined") {
   require("intersection-observer");
@@ -16,55 +16,51 @@ const Photo = Loadable({
   loader: () => import(/* webpackChunkName: "Photo" */ "../Photo"),
   loading: LoadingIndicator
 });
-const albumDetailsContainerStyles = css({
-  padding: "10px 30px"
-});
+const AlbumsDetailsWrapper = styled.div`
+  padding: 10px 30px;
+`;
 
-const albumContainerStyles = css({
-  display: "grid",
-  gridGap: "10px",
-  gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-  gridAutoRows: "200px",
-  gridAutoFlow: "row dense",
-  marginTop: "20px"
-});
-const imgContainerStyles = css(
-  {
-    position: "relative",
-    cursor: "pointer",
-    boxShadow: theme.main.boxShadow(theme.main.colors.orange),
-    border: `1px solid ${theme.main.colors.tollerantPink}`,
-    transition: "transform  0.3s ease-in-out",
-    borderRadius: theme.main.borderRadius,
-    padding: "10px",
-    "& .image-container": {
-      height: "100%",
-      backgroundSize: "cover",
-      backgroundPosition: "center"
-    }
-  },
-  hover({
-    boxShadow: `0px 0px 10px 2px ${theme.main.colors.orange}`
-  })
-);
-const imgMediumContainer = css(
-  {
-    gridRow: "span 3"
-  },
-  media("(max-width: 768px)", {
-    gridRow: "span 1"
-  })
-);
-const lastImageStyles = css(
-  {
-    gridColumn: "span 1",
-    gridRow: "span 1"
-  },
-  media("(max-width: 768px)", {
-    gridRow: "span 1",
-    gridColumn: "span 1"
-  })
-);
+const AlbumDetailsContainer = styled.div`
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: 200px;
+  grid-auto-flow: row dense;
+  margin-top: 20px;
+`;
+const ImageContainer = styled.div`
+  position: relative;
+  cursor: pointer;
+  box-shadow: ${boxShadow(colors.orange)};
+  border: 1px solid ${colors.tollerantPink};
+  transition: transform  0.3s ease-in-out;
+  border-radius: ${borderRadius};
+  padding: 10px;
+  .image-container {
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+  &:hover {
+    boxShadow: 0px 0px 10px 2px ${colors.orange};
+  }
+`;
+const MediumSizeImage = ImageContainer.extend`
+  grid-row: span 3;
+
+  @media(max-width: 768px) {
+    grid-row: span 1;
+  }
+`;
+const LastImage = ImageContainer.extend`
+  grid-column: span 1;
+  grid-row: span 1;
+  
+  @media(max-width: 768px) {
+    grid-row: span 1;
+    grid-column: span 1;
+  }
+`;
 export default class AlbumDetails extends Component {
   static propTypes = {
     match: PropTypes.object,
@@ -124,7 +120,7 @@ export default class AlbumDetails extends Component {
 
   componentDidUpdate() {
     document
-      .querySelectorAll(`.${imgContainerStyles.toString()} .image-container`)
+      .querySelectorAll(`.image-container`)
       .forEach(entry => {
         this.io.observe(entry);
       });
@@ -161,21 +157,21 @@ export default class AlbumDetails extends Component {
   renderContent = () => {
     let noOfPhotos = this.state.details.photo.length - 1;
     return (
-      <div className={`album-detail-container ${albumDetailsContainerStyles}`}>
+      <AlbumsDetailsWrapper>
         <h3>{this.state.details.title}</h3>
         <AvatarSM
           imgUrl="https://i.imgur.com/IY89xWR.jpg"
           name={this.state.details.ownername}
           profileLink={"https://www.flickr.com/photos/130755358@N08/albums"}
         />
-        <div className={`${albumContainerStyles}`}>
+        <AlbumDetailsContainer>
           {this.state.details.photo.map((image, i) => {
-            let mediumStyle = i % 4 === 0 ? imgMediumContainer : "";
-            let lastElementStyle = i + 6 > noOfPhotos ? lastImageStyles : "";
+            let ImgContainer = ImageContainer;
+            ImgContainer = i % 4 === 0 ? MediumSizeImage : ImgContainer;
+            ImgContainer = i + 6 > noOfPhotos ? LastImage : ImgContainer;
             return (
-              <div
+              <ImgContainer
                 key={image.id}
-                className={`${imgContainerStyles} ${mediumStyle} ${lastElementStyle}`}
               >
                 <Link to={`${this.props.match.url}/photos/${image.id}`}>
                   <div
@@ -184,11 +180,11 @@ export default class AlbumDetails extends Component {
                     data-image-src={`${image.url_m}`}
                   />
                 </Link>
-              </div>
+              </ImgContainer>
             );
           })}
-        </div>
-      </div>
+        </AlbumDetailsContainer>
+      </AlbumsDetailsWrapper>
     );
   };
 
