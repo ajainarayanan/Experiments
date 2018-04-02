@@ -1,4 +1,4 @@
-import { css, media, hover } from "glamor";
+import { css, media } from "glamor";
 
 const COLORS = {
   gray: "#E3E3E3",
@@ -121,44 +121,6 @@ export const buttonStyles = css({
   "[disabled]": {
     cursor: "not-allowed"
   }
-});
-
-css.global("html, body", {
-  backgroundColor: `${theme.main.colors.gray}`,
-  fontFamily: `Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace`
-});
-css.global("pre", theme.main.pre);
-css.global(
-  "a",
-  {},
-  hover({
-    textDecoration: "none"
-  })
-);
-css.global("p", {
-  marginBottom: "2rem"
-});
-css.global(
-  "ul",
-  {},
-  css({
-    "> p": {
-      margin: "0"
-    }
-  }),
-  css({
-    "> li": {
-      margin: "10px 0",
-      "> p": {
-        margin: "0"
-      }
-    }
-  })
-);
-css.global("h3, h4, h5", {
-  borderBottom: "1px solid",
-  paddingBottom: "10px",
-  fontWeight: "bold"
 });
 
 export const headerHeight = 60;
