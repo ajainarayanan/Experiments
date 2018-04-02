@@ -41,6 +41,13 @@ export const Spin = css`
   animation: ${SpinAnimation} 1s infinite
 `;
 
+export const FlexColumnStyles = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+
 export const Card = styled.div`
   border: 1px solid ${colors.tollerantPink};
   padding: 10px;
@@ -49,9 +56,7 @@ export const Card = styled.div`
   box-shadow: ${boxShadow(colors.orange)};
   word-wrap: break-word;
   text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  ${FlexColumnStyles}
   &:hover: {
     text-decoration: none;
     box-shadow: 0px 0px 10px 2px ${colors.orange}
