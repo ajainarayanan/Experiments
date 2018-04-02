@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
 import IconSVG from "../IconSVG";
-import { ProjectMetaStyles } from "../ProjectMeta";
+import {MetaWrapper} from '../../Styles/Main/components';
 
 export default function JournalMeta({ comments_count, stars_count }) {
   return (
-    <div className={`${ProjectMetaStyles}`}>
+    <MetaWrapper>
       <span>
         <IconSVG name="icon-bubble" />
         <span>{comments_count}</span>
@@ -19,7 +19,7 @@ export default function JournalMeta({ comments_count, stars_count }) {
         </span>
       </span>
       {/*One day when I get stars >*< */}
-    </div>
+    </MetaWrapper>
   );
 }
 

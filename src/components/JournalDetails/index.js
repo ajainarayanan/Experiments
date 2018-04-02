@@ -9,7 +9,7 @@ import { journalsStore } from "../Journals/store";
 import GithubComments from "../GithubComments";
 import JournalMeta from "../JournalMeta";
 import { fetchJounalStars } from "../Journals/store/ActionCreator";
-import { headingLinkStyles, newTabLinkStyles } from "../../Styles/Theme";
+import { HeadingLink } from "../../Styles/Main/components";
 import IconSVG from "../IconSVG";
 const Markdown = Loadable({
   loader: () => import(/* webpackChunkName: "Markdown" */ "../Markdown"),
@@ -72,10 +72,9 @@ export default class JournalDetails extends Component {
     let [file] = Object.keys(files).map(file => files[file]);
     let { content } = file;
     return (
-      <div className={`journal-detail-container container`}>
+      <div className="container">
         <h2>
-          <a
-            className={`${headingLinkStyles} ${newTabLinkStyles}`}
+          <HeadingLink
             href={html_url}
             target="_blank"
           >
@@ -83,7 +82,7 @@ export default class JournalDetails extends Component {
             <small>
               <IconSVG name="icon-new-tab" />
             </small>
-          </a>
+          </HeadingLink>
         </h2>
         <JournalMeta
           stars_count={this.state.stars}
