@@ -4,7 +4,7 @@ import {
   colors
 } from './variables';
 
-export const HeadingLink = styled.div`
+export const HeadingLink = styled.a`
   color: ${colors.brightBlue};
   text-decoration: none,
   small: {
@@ -37,7 +37,7 @@ export const CardWrapper = styled.div`
   }
 `;
 
-export const Spin = css`
+export const Spin = styled.div`
   animation: ${SpinAnimation} 1s infinite
 `;
 
@@ -73,10 +73,10 @@ export const ShortCard = Card.extend`
 
 export const Button = styled.button`
   border: 1px solid ${colors.tollerantPink};
-  boxShadow: 1px 1px 1px 1px ${colors.orange};
+  box-shadow: 1px 1px 1px 1px ${colors.orange};
   transition: ease-in box-shadown;
   &:active {
-    boxShadow: inset ${boxShadow(colors.orange)} !important;
+    box-shadow: inset ${boxShadow(colors.orange)} !important;
     outline: none;
   }
   &:focus {
@@ -105,5 +105,19 @@ export const InvalidResponse = styled.div`
     width: 100%;
     color: ${colors.red},
     background-color: ${colors.lightenPurple}
+  }
+`;
+
+export const MetaWrapper = styled.div`
+  margin: 5px 0 0;
+  display: flex;
+  > span {
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+  }
+
+  .icon-svg {
+    padding-right: 5px;
   }
 `;

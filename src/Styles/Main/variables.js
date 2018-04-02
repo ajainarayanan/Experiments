@@ -23,9 +23,11 @@ const colors = {
 const headerHeight = 60;
 const paddingBetweenCards = 20;
 const boxShadow = (color = colors.red) => `1px 1px 1px 1px ${color}`;
+const borderRadius = 4;
 export {
   colors,
   headerHeight,
   paddingBetweenCards,
-  boxShadow
+  boxShadow,
+  borderRadius
 };
