@@ -1,22 +1,24 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { css } from "glamor";
 import IconSVG from "../IconSVG";
-import { spin, headerHeight } from "../../Styles/Theme";
+import { headerHeight } from "../../Styles/Main/variables";
+import { Spin } from "../../Styles/Main/components";
+import styled from 'styled-components';
 
-const loadingIndicatorStyles = css({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  fontSize: "4em",
-  height: `calc(100vh - ${headerHeight}px)`
-});
+const LoadingIndicatorWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  height: calc(100vh - ${headerHeight}px);
+`;
+const SpinnerIcon = Spin.withComponent(IconSVG);
 
 const LoadingIndicator = ({ className }) => {
   return (
-    <div className={`${loadingIndicatorStyles} ${className}`}>
-      <IconSVG name="icon-spinner" className={`${spin}`} />
-    </div>
+    <LoadingIndicatorWrapper className={`${className}`}>
+      <SpinnerIcon name="icon-spinner" />
+    </LoadingIndicatorWrapper>
   );
 };
 LoadingIndicator.propTypes = {

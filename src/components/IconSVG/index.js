@@ -1,28 +1,30 @@
 import PropTypes from "prop-types";
 import React from "react";
 import classnames from "classnames";
-import { css } from "glamor";
-
+import styled from 'styled-components';
 require("../../images/symbol-defs.svg");
 
+const IconWrapper = styled.svg`
+  height: 1em;
+  width: 1em;
+  vertical-align: middle;
+  display: inline-block;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+`;
 export default function IconSVG(props) {
-  const svgStyles = css({
-    height: "1em",
-    width: "1em",
-    verticalAlign: "middle",
-    display: "inline-block",
-    strokeWidth: 0,
-    stroke: "currentColor",
-    fill: "currentColor"
-  });
   const { name, className, ...moreProps } = props;
   const iconClassName = classnames("icon-svg", name, className);
   const path = `${window.location.href}#symbol-defs_${name}`;
 
   return (
-    <svg className={`${iconClassName} ${svgStyles}`} {...moreProps}>
+    <IconWrapper
+      className={`${iconClassName}`}
+      {...moreProps}
+    >
       <use xlinkHref={path} />
-    </svg>
+    </IconWrapper>
   );
 }
 
