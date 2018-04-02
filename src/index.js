@@ -8,6 +8,12 @@ import LoadingIndicator from "./components/LoadingIndicator";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Header from "./components/Header";
 import Page404 from "./components/Page404";
+import styled, {injectGlobal} from 'styled-components';
+import GlobalStyles from './Styles/Main/global-styles';
+import GithubLandingPage from "./components/GithubLandingPage";
+import { colors, headerHeight } from "./Styles/Main/variables";
+import { CookiesProvider } from "react-cookie";
+
 const Journals = Loadable({
   loader: () =>
     import(/* webpackChunkName: "Journals" */ "./components/Journals"),
@@ -41,32 +47,30 @@ const Social = Loadable({
   loader: () => import(/* webpackChunkName: "Social" */ "./components/Social"),
   loading: LoadingIndicator
 });
-import GithubLandingPage from "./components/GithubLandingPage";
-import { css, media } from "glamor";
-import { theme, headerHeight } from "./Styles/Theme";
-import { CookiesProvider } from "react-cookie";
 
-const contentStyles = css(
-  {
-    padding: "0",
-    marginTop: "60px",
-    borderRight: `1px solid ${theme.main.colors.saturatedPink}`,
-    borderLeft: `1px solid ${theme.main.colors.saturatedPink}`,
-    borderTop: "0",
-    borderBottom: "0",
-    minHeight: `calc(100vh - ${headerHeight}px)`,
-    "& > div": {
-      padding: "10px 30px"
+const Container = styled.div.attrs({
+  className: 'container'
+})`
+  padding: 0;
+  margin-top: 60px;
+  border-right: 1px solid ${colors.saturatedPink};
+  border-left: 1px solid ${colors.saturatedPink};
+  border-top: 0;
+  border-bottom: 0;
+  min-height: calc(100vh - ${headerHeight}px);
+  > div {
+    padding: 10px 30px;
+  }
+  media(max-width: 768px) {
+    > div {
+      padding: 10px;
     }
-  },
-  media("(max-width: 768px)", {
-    "& > div": {
-      padding: "10px"
-    }
-  })
-);
+  }
+`;
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+injectGlobal`${GlobalStyles}`;
 
 export default class Home extends Component {
   state = {
@@ -83,7 +87,7 @@ export default class Home extends Component {
         <div>
           <CookiesProvider>
             <Header />
-            <div className={`container ${contentStyles}`}>
+            <Container>
               <Switch>
                 <Route exact path="/" component={Journals} />
                 <Route exact path="/journals" component={Journals} />
@@ -136,7 +140,7 @@ export default class Home extends Component {
                 />
                 <Route component={Page404} />
               </Switch>
-            </div>
+            </Container>
           </CookiesProvider>
         </div>
       </Router>
