@@ -14,7 +14,7 @@ const Project = ({ info }) => {
     >
       <div>
         <h5>{info.name}</h5>
-        <span>{info.description ? info.description : 'No description available'}</span>
+        <span>{info.description ? info.description : <i>No description available</i>}</span>
       </div>
       <div className="footer">
         <ProjectMeta
