@@ -1,45 +1,47 @@
 import PropTypes, { instanceOf } from "prop-types";
 import React, { Component } from "react";
 import { Cookies, withCookies } from "react-cookie";
-import { css } from "glamor";
-import { buttonStyles } from "../../Styles/Theme";
+import { Button } from "../../Styles/Main/components";
 import shortid from "shortid";
 import { WithLoadingIndicator } from "../LoadingIndicator";
+import styled from 'styled-components';
 
-const commentBoxStyles = css({
-  display: "flex",
-  position: "relative",
-  flexDirection: "column",
-  alignItems: "flex-end"
-});
-const singinBtnContainerStyles = css({
-  position: "absolute",
-  top: "0",
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  background: "rgba(0,0,0,0.2)"
-});
-const commentSubmitBoxStyles = css({
-  display: "flex",
-  width: "100%",
-  "> img": {
-    width: "60px",
-    height: "100%"
-  },
-  "& .form-control": {
-    borderRadius: 0
-  },
-  "& textarea": {
-    minHeight: "60px"
+const CommentBoxWrapper = styled.div`
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+const SignInBtnWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.2);
+`;
+const CommentWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  > img {
+    width: 60px;
+    height: 100%;
   }
-});
-const submitBtnStyles = css({
-  width: "200px",
-  margin: "10px 0"
-});
+
+  .form-control {
+    border-radius: 0;
+  }
+
+  textarea {
+    min-height: 60px;
+  }
+`;
+const SubmitBtn = Button.extend`
+  width: 200px;
+  margin: 10px 0;
+`;
 const GITHUB_AUTH_REDIRECT_URI = "https://github.com/login/oauth/authorize";
 
 class GithubCommentBox extends Component {
@@ -119,7 +121,7 @@ class GithubCommentBox extends Component {
   };
   renderCommentBoxWithSubmit = () => {
     return [
-      <div className={`${commentSubmitBoxStyles}`} key="comment-area">
+      <CommentWrapper key="comment-area">
         <img
           src={this.state.userDetails.avatar_url}
           title={this.state.userDetails.login}
@@ -130,15 +132,14 @@ class GithubCommentBox extends Component {
           onChange={this.handleCommentOnChange}
         />
         <hr />
-      </div>,
-      <button
-        className={`${buttonStyles} ${submitBtnStyles}`}
+      </CommentWrapper>,
+      <SubmitBtn
         disabled={this.isSubmitBtnDisabled()}
         key="submit-btn"
         onClick={this.submitComment}
       >
         Submit
-      </button>
+      </SubmitBtn>
     ];
   };
 
@@ -155,17 +156,16 @@ class GithubCommentBox extends Component {
   renderContent = () => {
     if (!this.state.access_token) {
       return (
-        <div className={`${commentSubmitBoxStyles}`}>
+        <CommentWrapper>
           <textarea className="form-control" disabled />
-          <div className={`${singinBtnContainerStyles}`}>
-            <button
-              className={`${buttonStyles}`}
+          <SignInBtnWrapper>
+            <Button
               onClick={this.handleGithubAuth}
             >
               Signin via Github to Comment
-            </button>
-          </div>
-        </div>
+            </Button>
+          </SignInBtnWrapper>
+        </CommentWrapper>
       );
     }
     return (
@@ -175,7 +175,7 @@ class GithubCommentBox extends Component {
     );
   };
   render() {
-    return <div className={`${commentBoxStyles}`}>{this.renderContent()}</div>;
+    return <CommentBoxWrapper>{this.renderContent()}</CommentBoxWrapper>;
   }
 }
 

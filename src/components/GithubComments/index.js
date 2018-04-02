@@ -2,57 +2,58 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import "whatwg-fetch";
 import GithubCommentBox from "../GithubCommentBox";
-import { css, after } from "glamor";
 import HRDate from "../HRDate";
-import { theme } from "../../Styles/Theme";
+import { colors } from "../../Styles/Main/variables";
 import IconSVG from "../IconSVG";
 import { WithLoadingIndicator } from "../LoadingIndicator";
+import styled from 'styled-components';
 
-const commentsStyles = css({
-  margin: "20px 0"
-});
-const emptyCommentsTextStyles = css({
-  textAlign: "center",
-  border: 0
-});
-
-const commentStyles = css({
-  display: "flex",
-  margin: "0 0 5px 0",
-  borderBottom: "1px solid",
-  paddingBottom: "10px"
-});
-const profilePicStyle = css({
-  width: "60px", // this 60 seems to repeat. Should extract it out with a meaningful name
-  height: "100%",
-  borderRadius: "4px"
-});
-const commentBodyStyle = css(
-  {
-    padding: "0 10px 5px 10px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    background: theme.main.colors.lightenPurple,
-    marginLeft: "10px",
-    position: "relative",
-    color: "white",
-    width: "100%"
-  },
-  after({
-    content: '""',
-    position: "absolute",
-    width: "10px",
-    height: "10px",
-    left: "-10px",
-    top: "20px",
-    borderTop: "10px solid transparent",
-    borderBottom: "10px solid transparent",
-    borderRight: `10px solid ${theme.main.colors.lightenPurple}`
-  })
-);
-const timeStyle = css({ color: theme.main.colors.red });
-const loadingIndicatorStyles = css({ height: "100%" });
+const CommentsWrapper = styled.div`
+  margin: 20px 0
+`;
+const EmptyComment = styled.h5`
+  text-align: center;
+  border: 0;
+`;
+const Comment = styled.div`
+  display: flex;
+  margin: 0 0 5px 0;
+  border-bottom: 1px solid;
+  padding-bottom: 10px;
+`;
+const CommentBody = styled.div`
+  padding: 0 10px 5px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between
+  background: ${colors.lightenPurple};
+  margin-left: 10px;
+  position: relative;
+  color: white;
+  width: 100%;
+  &:after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    left: -10px;
+    top: 20px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid ${colors.lightenPurple}
+  }
+`;
+const ProfilePic = styled.img`
+  height: 60px;
+  border-radius: 4px;
+`;
+const TimeWrapper = styled.div`
+  color: ${colors.red};
+`;
+const LoadingIndicator = styled.div`
+  height: 100%;
+`;
+const CommentLoadingIndicator = LoadingIndicator.withComponent(WithLoadingIndicator);
 
 export default class GithubComments extends Component {
   static propTypes = {
@@ -77,36 +78,34 @@ export default class GithubComments extends Component {
   }
   render() {
     return (
-      <div className={`${commentsStyles}`}>
+      <CommentsWrapper>
         <h3> Comments </h3>
-        <WithLoadingIndicator
+        <CommentLoadingIndicator
           condition={this.state.loading}
-          className={`${loadingIndicatorStyles}`}
         >
           {this.state.comments.length ? (
             this.state.comments.map((comment, i) => (
-              <div key={i} className={`${commentStyles}`}>
+              <Comment key={i}>
                 <a href={comment.user.html_url}>
-                  <img
+                  <ProfilePic
                     src={comment.user.avatar_url}
-                    className={profilePicStyle}
                   />
                 </a>
-                <div className={`${commentBodyStyle}`}>
+                <CommentBody>
                   <div>{comment.body}</div>
-                  <div className={`${timeStyle}`}>
+                  <TimeWrapper>
                     <IconSVG name="icon-clock" />
                     <HRDate date={comment.updated_at} />
-                  </div>
-                </div>
-              </div>
+                  </TimeWrapper>
+                </CommentBody>
+              </Comment>
             ))
           ) : (
-            <h5 className={`${emptyCommentsTextStyles}`}> No Comments </h5>
+            <EmptyComment> No Comments </EmptyComment>
           )}
           <GithubCommentBox id={this.state.id} onSubmit={this.fetchComments} />
-        </WithLoadingIndicator>
-      </div>
+        </CommentLoadingIndicator>
+      </CommentsWrapper>
     );
   }
 }
