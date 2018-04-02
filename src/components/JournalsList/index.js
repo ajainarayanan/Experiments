@@ -2,19 +2,19 @@ import PropTypes from "prop-types";
 import React from "react";
 import Journal from "../Journal";
 import { connect } from "react-redux";
-import { cardLayoutParent } from "../../Styles/Theme";
+import { CardWrapper } from "../../Styles/Main/components";
 import { WithLoadingIndicator } from "../LoadingIndicator";
 
 const JournalsList = ({ journals, loading }) => {
   return (
     <WithLoadingIndicator condition={loading}>
-      <div className={`journals-list-container ${cardLayoutParent}`}>
+      <CardWrapper>
         {journals.length
           ? journals.map(journal => {
               return <Journal info={journal} key={journal.id} />;
             })
           : null}
-      </div>
+      </CardWrapper>
     </WithLoadingIndicator>
   );
 };

@@ -1,13 +1,15 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { cardLayoutStyles } from "../../Styles/Theme";
+import { Card } from "../../Styles/Main/components";
 import HRDate from "../HRDate";
 import { Link } from "react-router-dom";
 import JournalMeta from "../JournalMeta";
 
+const LinkCard = Card.withComponent(Link);
+
 const Journal = ({ info }) => {
   return (
-    <Link className={`journal ${cardLayoutStyles}`} to={`/journals/${info.id}`}>
+    <LinkCard to={`/journals/${info.id}`}>
       <div>
         {info.description ? (
           <h5>{info.description}</h5>
@@ -19,7 +21,7 @@ const Journal = ({ info }) => {
         <JournalMeta comments_count={info.comments} stars_count={info.stars} />
         <HRDate date={info.created_at} />
       </div>
-    </Link>
+    </LinkCard>
   );
 };
 
