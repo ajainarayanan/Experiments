@@ -1,28 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { css } from "glamor";
 import IconSVG from "../IconSVG";
+import {MetaWrapper} from '../../Styles/Main/components';
 
-const ProjectMetaStyles = css({
-  margin: "5px 0 0",
-  display: "flex",
-  "& > span": {
-    padding: "0 5px",
-    display: "flex",
-    alignItems: "center"
-  },
-  "& .icon-svg": {
-    paddingRight: "5px"
-  }
-});
-export { ProjectMetaStyles };
 export default function ProjectMeta({
   forks,
   stargazers_count,
   open_issues_count
 }) {
   return (
-    <div className={`${ProjectMetaStyles}`}>
+    <MetaWrapper>
       <span>
         <IconSVG name="icon-git-merge" />
         <span>{forks}</span>
@@ -35,7 +22,7 @@ export default function ProjectMeta({
         <IconSVG name="icon-issues" />
         <span>{open_issues_count}</span>
       </span>
-    </div>
+    </MetaWrapper>
   );
 }
 
