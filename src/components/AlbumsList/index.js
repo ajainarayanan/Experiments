@@ -2,15 +2,15 @@ import PropTypes from "prop-types";
 import React from "react";
 import { WithLoadingIndicator } from "../LoadingIndicator";
 import { connect } from "react-redux";
-import { cardLayoutParent } from "../../Styles/Theme";
+import { CardWrapper } from "../../Styles/Main/components";
 import Album from "../Album";
 
 function AlbumsList({ loading, albums }) {
   return (
     <WithLoadingIndicator condition={loading}>
-      <div className={`albums-list-container ${cardLayoutParent}`}>
+      <CardWrapper>
         {albums.map(album => <Album key={album.id} {...album} />)}
-      </div>
+      </CardWrapper>
     </WithLoadingIndicator>
   );
 }
