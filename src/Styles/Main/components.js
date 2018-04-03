@@ -37,6 +37,20 @@ export const CardWrapper = styled.div`
   }
 `;
 
+export const ShortCardWrapper = CardWrapper.extend`
+  @media(max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(110px, auto));
+  }
+
+  @media(min-width: 769px) and (max-width: 1000px) {
+    grid-template-columns: repeat(auto-fill, minmax(110px, auto));
+  }
+
+  @media(min-width: 1001px) {
+    grid-template-columns: repeat(auto-fill, minmax(110px, auto));
+  }
+`;
+
 export const Spin = styled.div`
   animation: ${SpinAnimation} 1s infinite
 `;
