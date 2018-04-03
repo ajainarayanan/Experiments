@@ -1,13 +1,13 @@
 import React from "react";
 import IcongSVG from "../IconSVG";
-import { invalidReponseStyles } from "../../Styles/Theme";
+import { InvalidResponse } from "../../Styles/Main/components";
 
 export default function Page404() {
   return (
-    <div className={`${invalidReponseStyles}`}>
+    <InvalidResponse>
       <IcongSVG name="icon-baffled" />
       <h1>404</h1>
       <h2> Page Not Found </h2>
-    </div>
+    </InvalidResponse>
   );
 }

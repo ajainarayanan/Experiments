@@ -7,7 +7,7 @@ import {
 import LoadingIndicator, { WithLoadingIndicator } from "../LoadingIndicator";
 import DateTime from "../DateTime";
 import AvatarSM from "../AvatarSM";
-import { headingLinkStyles, newTabLinkStyles } from "../../Styles/Theme";
+import { HeadingLink } from "../../Styles/Main/components";
 import ProjectMeta from "../ProjectMeta";
 import IconSVG from "../IconSVG";
 import Loadable from "react-loadable";
@@ -62,8 +62,7 @@ export default class ProjectDetails extends Component {
     return (
       <div className={`project-detail-container container`}>
         <h2>
-          <a
-            className={`${headingLinkStyles} ${newTabLinkStyles}`}
+          <HeadingLink
             href={html_url}
             target="_blank"
           >
@@ -71,7 +70,7 @@ export default class ProjectDetails extends Component {
             <small>
               <IconSVG name="icon-new-tab" />
             </small>
-          </a>
+          </HeadingLink>
         </h2>
         <ProjectMeta
           forks={forks}
@@ -81,13 +80,12 @@ export default class ProjectDetails extends Component {
         {parent ? (
           <small>
             <span>Forked from </span>
-            <a
+            <HeadingLink
               target="_blank"
               href={parent.html_url}
-              className={`${headingLinkStyles}`}
             >
               {parent.full_name}
-            </a>
+            </HeadingLink>
           </small>
         ) : null}
         <DateTime datetime={this.state.created_at} />
@@ -99,14 +97,13 @@ export default class ProjectDetails extends Component {
         {!this.state.readme ? (
           <h2>
             No README.md found. Please explore the repo by
-            <a
+            <HeadingLink
               target="_blank"
               href={html_url}
-              className={`${headingLinkStyles}`}
             >
               {" "}
               Clicking here{" "}
-            </a>
+            </HeadingLink>
           </h2>
         ) : (
           <Markdown markdown={this.state.readme} />

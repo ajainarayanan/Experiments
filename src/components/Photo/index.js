@@ -3,37 +3,35 @@ import React, { Component } from "react";
 import Modal from "../Modal";
 import { albumStore } from "../Albums/store";
 import { WithLoadingIndicator } from "../LoadingIndicator";
-import { css } from "glamor";
 import IconSVG from "../IconSVG";
 import { Link, Redirect } from "react-router-dom";
 import "whatwg-fetch";
 import Mousetrap from "mousetrap";
 import Page404 from "../Page404";
+import styled from 'styled-components';
 
-const imgStyles = css({
-  width: "100%"
-});
-const closeButtonStyles = css({
-  textAlign: "right",
-  position: "absolute",
-  right: "20px",
-  zIndex: "2000",
-  top: "20px",
-  background: "white",
-  padding: "5px",
-  borderRadius: "50%",
-  display: "inline-flex",
-  "> a": {
-    lineHeight: 1,
-    color: "black",
-    display: "flex"
+const ImgContainer = styled.img`
+  width: 100%;
+`;
+const CloseBtn = styled.div`
+  text-align: right;
+  position: absolute;
+  right: 20px;
+  z-index: 2000;
+  top: 20px;
+  background: white;
+  padding: 5px;
+  border-radius: 50%;
+  display: inline-flex;
+  > a {
+    line-height: 1;
+    color: black;
+    display: flex;
   }
-});
-
-const modalStyles = css({
-  background: "white"
-});
-
+`;
+const ModalContent = styled.div`
+  background: white;
+`;
 export default class Photo extends Component {
   static propTypes = {
     match: PropTypes.object,
@@ -127,23 +125,22 @@ export default class Photo extends Component {
             <Page404 />
           ) : (
             [
-              <div className={`${closeButtonStyles}`} key="icon">
+              <CloseBtn key="icon">
                 <Link to={`/albums/${this.state.albumid}`}>
                   <IconSVG name="icon-cross" />
                 </Link>
-              </div>,
-              <div
-                className={`modal-content ${modalStyles}`}
+              </CloseBtn>,
+              <ModalContent
+                className="modal-content"
                 key="modal-content"
               >
                 <div className="modal-body">
-                  <img
+                  <ImgContainer
                     src={this.state.photoUrl}
                     alt={this.state.photoTitle}
-                    className={`${imgStyles}`}
                   />
                 </div>
-              </div>
+              </ModalContent>
             ]
           )}
         </WithLoadingIndicator>
