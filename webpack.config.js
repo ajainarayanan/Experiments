@@ -3,7 +3,7 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const SpriteLoaderPlugin = require("svg-sprite-loader/plugin");
 const webpack = require("webpack");
-
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 let plugins = [
   new HtmlWebpackPlugin({
     title: "CDAP",
@@ -13,7 +13,8 @@ let plugins = [
   }),
   new ExtractTextPlugin("styles.css"),
   new SpriteLoaderPlugin(),
-  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+  new CleanWebpackPlugin(['dist'], {})
 ];
 
 if (process.env.NODE_ENV === "production") {
