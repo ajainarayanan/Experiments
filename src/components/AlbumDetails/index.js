@@ -41,8 +41,8 @@ const ImageContainer = styled.div`
     background-size: cover;
     background-position: center;
   }
-  &:hover {
-    boxShadow: 0px 0px 10px 2px ${colors.orange};
+  :hover {
+    box-shadow: 0px 0px 10px 2px ${colors.orange};
   }
 `;
 const MediumSizeImage = ImageContainer.extend`

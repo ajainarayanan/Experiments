@@ -1,46 +1,49 @@
 import React, { Component } from "react";
-import { css } from "glamor";
 import { NavLink } from "react-router-dom";
-import { theme, headerHeight } from "../../Styles/Theme";
+import { colors, headerHeight } from "../../Styles/Main/variables";
 import IconSVG from "../IconSVG";
+import styled from 'styled-components';
 
-const navBarStyles = css({
-  height: `${headerHeight}px`,
-  backgroundColor: theme.main.colors.tollerantPink,
-  position: "fixed",
-  width: "100%",
-  zIndex: "2000",
-  top: "0",
-  justifyContent: "center",
-  "& .navbar-nav": {
-    flexDirection: "row",
-    "& .nav-item": {
-      padding: "0 20px",
-      fontSize: "1.5em",
-      ":hover": {
-        color: "white"
-      },
-      "& .nav-link": {
-        color: "inherit",
-        lineHeight: "1",
-        ".active": {
-          color: `black`
-        }
-      }
-    }
+const NavbarWrapper = styled.nav`
+  height: ${headerHeight}px;
+  background-color: ${colors.tollerantPink};
+  position: fixed;
+  width: 100%;
+  z-index: 2000;
+  top: 0;
+  justify-content: center;
+  color: ${colors.gray}
+`;
+const NavbarNav = styled.ul`
+  flex-direction: row;
+`;
+const NavItem = styled.li`
+  padding: 0 20px;
+  font-size: 1.5em;
+  :hover {
+    color: white;
   }
-});
-const greyFontColor = css({
-  color: theme.main.colors.gray
-});
+`;
+const NavLinkStyles = styled.div`
+  color: inherit;
+  line-height: 1;
+  &.active,
+  &.active:hover {
+    color: black;
+  }
+  :hover {
+    color: inherit;
+  }
+`;
+const StyledNavLink = NavLinkStyles.withComponent(NavLink);
 
 export default class Header extends Component {
   render() {
     return (
-      <nav className={`navbar ${navBarStyles}`}>
-        <ul className={`navbar-nav ${greyFontColor}`}>
-          <li className={`nav-item`}>
-            <NavLink
+      <NavbarWrapper className="navbar">
+        <NavbarNav className="navbar-nav">
+          <NavItem>
+            <StyledNavLink
               className="nav-link"
               to="/journals"
               isActive={(match, location) => {
@@ -48,25 +51,37 @@ export default class Header extends Component {
               }}
             >
               <IconSVG name="icon-home" />
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/projects">
+            </StyledNavLink>
+          </NavItem>
+          <NavItem>
+            <StyledNavLink
+              className="nav-link"
+              to="/projects"
+              activeClassName="active"
+            >
               <IconSVG name="icon-github" />
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/albums">
+            </StyledNavLink>
+          </NavItem>
+          <NavItem>
+            <StyledNavLink
+              className="nav-link"
+              to="/albums"
+              activeClassName="active"
+            >
               <IconSVG name="icon-camera" />
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/social">
+            </StyledNavLink>
+          </NavItem>
+          <NavItem>
+            <StyledNavLink
+              className="nav-link"
+              to="/social"
+              activeClassName="active"
+            >
               <IconSVG name="icon-cool" />
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
+            </StyledNavLink>
+          </NavItem>
+        </NavbarNav>
+      </NavbarWrapper>
     );
   }
 }

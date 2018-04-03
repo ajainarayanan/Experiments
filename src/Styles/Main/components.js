@@ -56,8 +56,8 @@ export const Card = styled.div`
   box-shadow: ${boxShadow(colors.orange)};
   word-wrap: break-word;
   text-decoration: none;
-  ${FlexColumnStyles}
-  &:hover: {
+  ${FlexColumnStyles};
+  :hover {
     text-decoration: none;
     box-shadow: 0px 0px 10px 2px ${colors.orange}
   }

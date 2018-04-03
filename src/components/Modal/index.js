@@ -1,53 +1,51 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { css, media } from "glamor";
+import styled from 'styled-components';
 
 const appRoot = document.getElementById("app");
-const modalContainerStyles = css({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  top: 0,
-  left: 0,
-  height: "100vh",
-  width: "100vw",
-  position: "fixed",
-  backgroundColor: "rgba(0,0,0,0.5)",
-  zIndex: "2000"
-});
-const modalCustomStyles = css({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  overflowY: "auto",
-  marginTop: "60px"
-});
+const ModalWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2000;
+`;
 
-const modalLgDialogStyles = css({
-  margin: 0,
-  width: "100%",
-  maxWidth: "100%",
-  height: "100%",
-  "> div": {
-    backgroundColor: "white"
+const ModalInnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  margin-top: 60p;
+`;
+const ModalLg = styled.div`
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  > div {
+    background-color: white;
   }
-});
-const modalSmDialogStyles = css(
-  {
-    margin: 0,
-    width: "50%",
-    maxWidth: "50%",
-    "> div": {
-      backgroundColor: "white"
-    }
-  },
-  media("(max-width: 768px)", {
-    width: "100%",
-    maxWidth: "100%",
-    height: "100%"
-  })
-);
+`;
+const ModalSm = styled.div`
+  margin: 0;
+  width: 50%;
+  max-width: 50%;
+  > div {
+    background-color: white;
+  }
+  @media(max-width: 768px) {
+    width: 100%;
+    maxWidth: 100%;
+    height: 100%;
+  }
+`;
 
 export default class Modal extends Component {
   static propTypes = {
@@ -91,16 +89,16 @@ export default class Modal extends Component {
     if (!this.state.isOpen) {
       return null;
     }
-    let modalDialogSize =
-      this.props.size === "lg" ? modalLgDialogStyles : modalSmDialogStyles;
+    let ModalContent =
+      this.props.size === "lg" ? ModalLg : ModalSm;
     return (
-      <div className={`${modalContainerStyles}`}>
-        <div className={`modal ${modalCustomStyles}`}>
-          <div className={`modal-dialog ${modalDialogSize}`}>
+      <ModalWrapper>
+        <ModalInnerContainer className="modal">
+          <ModalContent className="modal-dialog">
             {this.props.children}
-          </div>
-        </div>
-      </div>
+          </ModalContent>
+        </ModalInnerContainer>
+      </ModalWrapper>
     );
   };
   render() {
