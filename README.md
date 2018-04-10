@@ -15,7 +15,7 @@ Runs on,
  - [Express](https://github.com/expressjs/express)
  - [flickrapi](https://github.com/Pomax/node-flickrapi)
  - es5+
- - [glamor](https://github.com/threepointone/glamor/)
+ - [styled-components](https://github.com/styled-components/styled-components) ~~[glamor](https://github.com/threepointone/glamor/)~~
  - [marksy](https://github.com/cerebral/marksy)
 
 Only hack I am not too proud of,
