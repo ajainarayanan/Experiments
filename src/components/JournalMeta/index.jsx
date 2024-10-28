@@ -1,17 +1,19 @@
 import PropTypes from "prop-types";
 import React from "react";
-import IconSVG from "../IconSVG";
+import IconSVGWrapper from "../IconSVG";
 import {MetaWrapper} from '../../Styles/Main/components';
+import IconStarFull from '../../images/iconstarfull.svg?react';
+import IconBubble from '../../images/iconbubble.svg?react';
 
 export default function JournalMeta({ comments_count, stars_count }) {
   return (
     <MetaWrapper>
       <span>
-        <IconSVG name="icon-bubble" />
+        <IconSVGWrapper><IconBubble/>  </IconSVGWrapper>
         <span>{comments_count}</span>
       </span>
       <span>
-        <IconSVG name="icon-star-full" />
+        <IconSVGWrapper> <IconStarFull /> </IconSVGWrapper>
         <span>
           {typeof stars_count === "undefined" || stars_count === null
             ? "..."

@@ -3,11 +3,12 @@ import React, { Component } from "react";
 import Modal from "../Modal";
 import { albumStore } from "../Albums/store";
 import { WithLoadingIndicator } from "../LoadingIndicator";
-import IconSVG from "../IconSVG";
+import IconSVGWrapper from "../IconSVG";
 import { Link, Redirect } from "react-router-dom";
 import "whatwg-fetch";
 import Mousetrap from "mousetrap";
 import Page404 from "../Page404";
+import IconCross from '../../images/iconcross.svg?react';
 import styled from 'styled-components';
 
 const ImgContainer = styled.img`
@@ -127,7 +128,9 @@ export default class Photo extends Component {
             [
               <CloseBtn key="icon">
                 <Link to={`/albums/${this.state.albumid}`}>
-                  <IconSVG name="icon-cross" />
+                  <IconSVGWrapper>
+                    <IconCross/>
+                  </IconSVGWrapper>
                 </Link>
               </CloseBtn>,
               <ModalContent

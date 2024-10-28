@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { colors, headerHeight } from "../../Styles/Main/variables";
-import IconSVG from "../IconSVG";
+import IconSVGWrapper from "../IconSVG";
 import styled from 'styled-components';
+import Iconhome from '../../images/iconhome.svg?react';
+import IconGithub from '../../images/icongithub.svg?react';
+import IconCamera from '../../images/iconcamera.svg?react';
+import IconCool from '../../images/iconcool.svg?react';
 
 const NavbarWrapper = styled.nav`
   height: ${headerHeight}px;
@@ -16,6 +20,7 @@ const NavbarWrapper = styled.nav`
 `;
 const NavbarNav = styled.ul`
   flex-direction: row;
+  justify-content: center;
 `;
 const NavItem = styled.li`
   padding: 0 20px;
@@ -40,7 +45,7 @@ const StyledNavLink = NavLinkStyles.withComponent(NavLink);
 export default class Header extends Component {
   render() {
     return (
-      <NavbarWrapper className="navbar">
+      <NavbarWrapper>
         <NavbarNav className="navbar-nav">
           <NavItem>
             <StyledNavLink
@@ -50,7 +55,7 @@ export default class Header extends Component {
                 return match || location.pathname === "/";
               }}
             >
-              <IconSVG name="icon-home" />
+              <IconSVGWrapper><Iconhome /></IconSVGWrapper>   
             </StyledNavLink>
           </NavItem>
           <NavItem>
@@ -59,7 +64,7 @@ export default class Header extends Component {
               to="/projects"
               activeClassName="active"
             >
-              <IconSVG name="icon-github" />
+              <IconSVGWrapper><IconGithub /> </IconSVGWrapper>
             </StyledNavLink>
           </NavItem>
           <NavItem>
@@ -68,7 +73,7 @@ export default class Header extends Component {
               to="/albums"
               activeClassName="active"
             >
-              <IconSVG name="icon-camera" />
+              <IconSVGWrapper><IconCamera /></IconSVGWrapper>
             </StyledNavLink>
           </NavItem>
           <NavItem>
@@ -77,7 +82,7 @@ export default class Header extends Component {
               to="/social"
               activeClassName="active"
             >
-              <IconSVG name="icon-cool" />
+              <IconSVGWrapper><IconCool /></IconSVGWrapper>
             </StyledNavLink>
           </NavItem>
         </NavbarNav>

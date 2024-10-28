@@ -1,20 +1,25 @@
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { fetchJournalDetails } from "../Journals/store/ActionCreator";
-import LoadingIndicator, { WithLoadingIndicator } from "../LoadingIndicator";
+
 import AvatarSM from "../AvatarSM";
 import DateTime from "../DateTime";
-import Loadable from "react-loadable";
 import { journalsStore } from "../Journals/store";
 import GithubComments from "../GithubComments";
 import JournalMeta from "../JournalMeta";
 import { fetchJounalStars } from "../Journals/store/ActionCreator";
 import { HeadingLink } from "../../Styles/Main/components";
-import IconSVG from "../IconSVG";
-const Markdown = Loadable({
-  loader: () => import(/* webpackChunkName: "Markdown" */ "../Markdown"),
-  loading: LoadingIndicator
-});
+import IconSVGWrapper from "../IconSVG";
+import LoadingIndicator, { WithLoadingIndicator} from '../LoadingIndicator';
+const MarkDownComponent = React.lazy(() => import("../Markdown"));
+const WrapSuspense = (child) => {
+  return (
+    <Suspense fallback={<LoadingIndicator />}>
+      {child}
+    </Suspense>
+  )
+}
+const Markdown = (props) => WrapSuspense(<MarkDownComponent {...props} />)
 
 export default class JournalDetails extends Component {
   static propTypes = {
@@ -80,7 +85,7 @@ export default class JournalDetails extends Component {
           >
             {title}
             <small>
-              <IconSVG name="icon-new-tab" />
+              <IconSVGWrapper name="icon-new-tab" />
             </small>
           </HeadingLink>
         </h2>

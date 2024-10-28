@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import {
   fetchProjectDetails,
   fetchProjectReadme
@@ -9,13 +9,17 @@ import DateTime from "../DateTime";
 import AvatarSM from "../AvatarSM";
 import { HeadingLink } from "../../Styles/Main/components";
 import ProjectMeta from "../ProjectMeta";
-import IconSVG from "../IconSVG";
-import Loadable from "react-loadable";
+import IconSVGWrapper from "../IconSVG";
 
-const Markdown = Loadable({
-  loader: () => import(/* webpackChunkName: "Markdown" */ "../Markdown"),
-  loading: LoadingIndicator
-});
+const WrapSuspense = (child) => {
+  return (
+    <Suspense fallback={<LoadingIndicator />}>
+      {child}
+    </Suspense>
+  )
+}
+const MarkdownComponent = React.lazy(() => import("../Markdown/index.jsx"))
+const Markdown = (props) => WrapSuspense(<MarkdownComponent {...props}/>)
 export default class ProjectDetails extends Component {
   static propTypes = {
     match: PropTypes.object,
@@ -68,7 +72,7 @@ export default class ProjectDetails extends Component {
           >
             {title}
             <small>
-              <IconSVG name="icon-new-tab" />
+              <IconSVGWrapper name="icon-new-tab" />
             </small>
           </HeadingLink>
         </h2>

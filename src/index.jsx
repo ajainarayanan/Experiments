@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "prismjs/themes/prism-dark.css";
 import "babel-polyfill";
-import Loadable from "react-loadable";
 import LoadingIndicator from "./components/LoadingIndicator";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Header from "./components/Header";
@@ -13,41 +12,28 @@ import GlobalStyles from './Styles/Main/global-styles';
 import GithubLandingPage from "./components/GithubLandingPage";
 import { colors, headerHeight } from "./Styles/Main/variables";
 import { CookiesProvider } from "react-cookie";
+const WrapSuspense = (child) => {
+  return (
+    <Suspense fallback={<LoadingIndicator />}>
+      {child}
+    </Suspense>
+  )
+}
 
-const Journals = Loadable({
-  loader: () =>
-    import(/* webpackChunkName: "Journals" */ "./components/Journals"),
-  loading: LoadingIndicator
-});
-const Projects = Loadable({
-  loader: () =>
-    import(/* webpackChunkName: "Projects" */ "./components/Projects"),
-  loading: LoadingIndicator
-});
-const JournalDetails = Loadable({
-  loader: () =>
-    import(/* webpackChunkName: "JournalDetails" */ "./components/JournalDetails"),
-  loading: LoadingIndicator
-});
-const ProjectDetails = Loadable({
-  loader: () =>
-    import(/* webpackChunkName: "ProjectDetails" */ "./components/ProjectDetails"),
-  loading: LoadingIndicator
-});
-const Albums = Loadable({
-  loader: () => import(/* webpackChunkName: "Albums" */ "./components/Albums"),
-  loading: LoadingIndicator
-});
-const AlbumDetails = Loadable({
-  loader: () =>
-    import(/* webpackChunkName: "AlbumDetails" */ "./components/AlbumDetails"),
-  loading: LoadingIndicator
-});
-const Social = Loadable({
-  loader: () => import(/* webpackChunkName: "Social" */ "./components/Social"),
-  loading: LoadingIndicator
-});
-
+const JournalsComponent = React.lazy(() => import("./components/Journals"));
+const Journals = () =>  WrapSuspense(<JournalsComponent />);
+const ProjectsComponent = React.lazy(() => import("./components/Projects"));
+const Projects = () => WrapSuspense(<ProjectsComponent />)
+const JournalDetailsComponent = React.lazy(() => import("./components/JournalDetails"));
+const JournalDetails = (props) => WrapSuspense(<JournalDetailsComponent {...props} />);
+const ProjectDetailsComponent = React.lazy(() => import("./components/ProjectDetails"));
+const ProjectDetails = (props) => WrapSuspense(<ProjectDetailsComponent {...props} />);
+const AlbumsComponent = React.lazy(() => import("./components/Albums"));
+const Albums = () => WrapSuspense(<AlbumsComponent />);
+const AlbumDetailsComponent = React.lazy(() => import("./components/AlbumDetails"));
+const AlbumDetails = (props) => WrapSuspense(<AlbumDetailsComponent {...props} />);
+const SocialComponent = React.lazy(() => import("./components/Social"));
+const Social = () => WrapSuspense(<SocialComponent />);
 const Container = styled.div.attrs({
   className: 'container'
 })`

@@ -1,21 +1,26 @@
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import LoadingIndicator, { WithLoadingIndicator } from "../LoadingIndicator";
 import { fetchAlbumDetails } from "../Albums/store/ActionCreator";
 import { colors, boxShadow, borderRadius } from "../../Styles/Main/variables";
 import AvatarSM from "../AvatarSM";
 import { Link, Route } from "react-router-dom";
 import { albumStore } from "../Albums/store";
-import Loadable from "react-loadable";
 import styled from 'styled-components';
 
 if (typeof IntersectionObserver === "undefined") {
   require("intersection-observer");
 }
-const Photo = Loadable({
-  loader: () => import(/* webpackChunkName: "Photo" */ "../Photo"),
-  loading: LoadingIndicator
-});
+const WrapSuspense = (child) => {
+  return (
+    <Suspense fallback={<LoadingIndicator />}>
+      {child}
+    </Suspense>
+  )
+}
+
+const PhotoComponent = React.lazy(() => import("../Photo"));
+const Photo = (props) => WrapSuspense(<PhotoComponent {...props} />);
 const AlbumsDetailsWrapper = styled.div`
   padding: 10px 30px;
 `;

@@ -4,7 +4,8 @@ import { Card, FlexColumnStyles } from "../../Styles/Main/components";
 import HRDate from "../HRDate";
 import styled, {css} from 'styled-components';
 import { Link } from "react-router-dom";
-import IconSVG from "../IconSVG";
+import IconSVGWrapper from "../IconSVG";
+import IconCamera from '../../images/iconcamera.svg?react';
 
 const HEIGHT_OF_IMAGE = 270;
 const FlexColumbFullHeight = css`
@@ -72,7 +73,7 @@ const Album = ({
               <HRDate date={parseInt(date_create, 10) * 1000} />
               <span>
                 <span>{photos}</span>
-                <IconSVG name="icon-camera" />
+                <IconSVGWrapper><IconCamera /> </IconSVGWrapper>
               </span>
             </AlbumFooter>
           </AlbumFooterWrapper>

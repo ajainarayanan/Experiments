@@ -45,21 +45,27 @@ const headers = () =>
     getAuthHeader()
   );
 
-app.all("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "/dist/index.html"));
-});
 app.use(compression());
 app.use(favicon(path.join(__dirname, "favicon.ico")));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'dist')));
+  app.all("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "/dist/index.html"));
+  });
+  app.use(compression());
+  app.use(favicon(path.join(__dirname, "favicon.ico")));
+  app.use("/dist", [
+    express.static(`${staticPath}/dist`, {
+      index: false,
+      maxAge: "1y"
+    }),
+    (req, res) => {
+      finalhandler(req, res)(false);
+    }
+  ]);
+}
 
-app.use("/dist", [
-  express.static(`${staticPath}/dist`, {
-    index: false,
-    maxAge: "1y"
-  }),
-  (req, res) => {
-    finalhandler(req, res)(false);
-  }
-]);
+app.listen(PORT);
 
 app.get("/api/journals", async (req, res) => {
   const pageNum = req.params.page_num;
@@ -228,6 +234,10 @@ app.get("/api/albums", async (req, res) => {
     let albums = await photos.getAlbums();
     res.send({ statusCode: 200, body: albums });
   } catch ({ statusCode, err }) {
+    if (!statusCode) {
+      res.status(501).send({ err });
+      return;
+    }
     res.status(statusCode).send({ err, statusCode });
   }
 });
@@ -253,10 +263,10 @@ app.get("/api/photos/:photoid", async (req, res) => {
   }
 });
 
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "dist/index.html"));
-});
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res) => {
+    res.sendFile(path.join(__dirname, "dist/index.html"));
+  });
+}
 
-app.listen(PORT || 8000);
-
-console.log(`Listening on port ${PORT || 8000}`);
+console.log(`Listening on port ${PORT}`);

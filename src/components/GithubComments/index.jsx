@@ -4,7 +4,7 @@ import "whatwg-fetch";
 import GithubCommentBox from "../GithubCommentBox";
 import HRDate from "../HRDate";
 import { colors } from "../../Styles/Main/variables";
-import IconSVG from "../IconSVG";
+import IconSVGWrapper from "../IconSVG";
 import { WithLoadingIndicator } from "../LoadingIndicator";
 import styled from 'styled-components';
 
@@ -94,7 +94,7 @@ export default class GithubComments extends Component {
                 <CommentBody>
                   <div>{comment.body}</div>
                   <TimeWrapper>
-                    <IconSVG name="icon-clock" />
+                    <IconSVGWrapper name="icon-clock" />
                     <HRDate date={comment.updated_at} />
                   </TimeWrapper>
                 </CommentBody>

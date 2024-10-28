@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import IconSVG from "../IconSVG";
+import IconSVGWrapper from "../IconSVG";
 import { headerHeight } from "../../Styles/Main/variables";
 import { Spin } from "../../Styles/Main/components";
 import styled from 'styled-components';
@@ -12,7 +12,7 @@ const LoadingIndicatorWrapper = styled.div`
   font-size: 4em;
   height: calc(100vh - ${headerHeight}px);
 `;
-const SpinnerIcon = Spin.withComponent(IconSVG);
+const SpinnerIcon = Spin.withComponent(IconSVGWrapper);
 
 const LoadingIndicator = ({ className }) => {
   return (

@@ -132,6 +132,6 @@ export const MetaWrapper = styled.div`
   }
 
   .icon-svg {
-    padding-right: 5px;
+    margin-right: 5px;
   }
 `;

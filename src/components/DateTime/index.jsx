@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import HRDate from "../HRDate";
 import { colors } from "../../Styles/Main/variables";
-import IconSVG from "../IconSVG";
+import IconSVGWrapper from "../IconSVG";
 import styled from 'styled-components';
 
 const DateTimeWrapper = styled.div`
@@ -12,7 +12,7 @@ const DateTimeWrapper = styled.div`
 export default function DateTime({ datetime }) {
   return (
     <DateTimeWrapper>
-      <IconSVG name="icon-clock" />
+      <IconSVGWrapper name="icon-clock" />
       <HRDate date={datetime} />
     </DateTimeWrapper>
   );
