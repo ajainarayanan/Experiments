@@ -13,6 +13,14 @@ import styled from 'styled-components';
 
 const ImgContainer = styled.img`
   width: 100%;
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `;
 const CloseBtn = styled.div`
   text-align: right;
@@ -26,12 +34,13 @@ const CloseBtn = styled.div`
   display: inline-flex;
   > a {
     line-height: 1;
-    color: black;
+    color: white;
     display: flex;
   }
 `;
 const ModalContent = styled.div`
-  background: white;
+  background: black;
+  height: 100vh;
 `;
 export default class Photo extends Component {
   static propTypes = {

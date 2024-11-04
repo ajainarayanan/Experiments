@@ -30,7 +30,7 @@ const ModalLg = styled.div`
   max-width: 100%;
   height: 100%;
   > div {
-    background-color: white;
+    background-color: black;
   }
 `;
 const ModalSm = styled.div`
@@ -38,7 +38,7 @@ const ModalSm = styled.div`
   width: 50%;
   max-width: 50%;
   > div {
-    background-color: white;
+    background-color: black;
   }
   @media(max-width: 768px) {
     width: 100%;
